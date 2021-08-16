@@ -1,0 +1,11 @@
+{
+    "username_null": "El nombre de usuario no puede ser nulo",
+    "username_size": "El nombre de usuario debe tener entre 4 y 32 caracteres",
+    "email_null": "E-mail no puede ser nulo",
+    "email_invalid": "E-mail no es valido",
+    "email_inuse": "E-mail en uso",
+    "password_null": "La contrasena no puede ser nula",
+    "password_size": "La contrasena debe tener al menos 6 caracteres",
+    "password_pattern": "La contrasena debe tener una mayuscula, una minuscula y un numero",
+    "user_create_success": "Usuario creado"
+}
