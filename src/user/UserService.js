@@ -1,21 +1,22 @@
 const User = require('./User');
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
+const EmailService = require('../email/EmailService');
+
+const generateToken = (length) => {
+  return crypto.randomBytes(length).toString('hex').substring(0, length);
+};
 
 const save = async (body) => {
-  const hash = await bcrypt.hash(body.password, 10);
-  const user = { ...body, password: hash };
-  //const user = Object.assign({}, body, {password: hash });
-  // Other ways
-  //const user = {
-  //  username: body.username,
-  //  email: body.email,
-  //  password: hash,
-  //};
+  const { username, email, password } = body;
+  const hash = await bcrypt.hash(password, 10);
+  const user = { username, email, password: hash, activationToken: generateToken(10) };
   await User.create(user);
+  await EmailService.sendAccountActivation(email, user.activationToken);
 };
 
 const findByEmail = async (email) => {
-  return await User.findOne({ where: {email: email }});
-}
+  return await User.findOne({ where: { email: email } });
+};
 
-module.exports = { save, findByEmail};
+module.exports = { save, findByEmail };
